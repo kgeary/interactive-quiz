@@ -20,17 +20,28 @@
             <div class="col-8"></div>
             <div class="col-2">
                 <div id="time">
-                    Time: <span id="current-time">60</span>
+                    Time: <span id="current-time"></span>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col text-center">
-                <button id="start" class="btn btn-primary">Start Quiz</button>
+        <div id="wrapper">
+            <button id="start" class="btn btn-primary">Start Quiz</button>
+            <div id="question-screen">
+                <h3 id="question-text">Question Text Here:</h3>
+                <div id="response-list">
+                </div>
+                <h4 id="response-correct">isCorrect</h4>
+            </div>
+            <div id="result-screen">
+                <h3>All Done!</h3>
+                <div><h4>Final Score: </h4><span id="finalScore"></span></div>
+                <label for="initials">Initials:</label>
+                <input type="text" id="initials">
+                <button id="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
-    </div>
 
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -41,7 +52,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src="assets/js/quiz.js"></script>
+    <script type="text/javascript" src="assets/js/questions.js"></script>
+    <script type="text/javascript" src="assets/js/quiz.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,40 @@
+#wrapper {
+    background-color: lightgray;
+    width: 75%;
+    min-height: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#start {
+    margin: auto;
+}
+
+#question-screen,
+#result-screen {
+    display: none;
+}
+
+#response-list {
+    list-style-type: none;
+    text-align: left;
+}
+
+.btn-choice {
+    display: block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 15px;
+    margin: 0.25rem;
+}
+
+#response-correct {
+    visibility: hidden;
+    border-top: 1px solid gray;
+    margin-top: 1rem;
+    font-style: italic;
+    font-size: 16px;
+    color: #444;
+}
