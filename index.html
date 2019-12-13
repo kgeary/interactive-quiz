@@ -13,32 +13,45 @@
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-2">
-                <a href="#" id="high-scores">View High Scores</a>
-            </div>
-            <div class="col-8"></div>
-            <div class="col-2">
-                <div id="time">
-                    Time: <span id="current-time"></span>
-                </div>
+        <div class="header">
+            <a href="#" id="high-scores-link">View High Scores</a>
+            <div id="time">
+                <span>Time: </span>
+                <span id="current-time"></span>
             </div>
         </div>
         <div id="wrapper">
-            <button id="start" class="btn btn-primary">Start Quiz</button>
+            <!-- START SCREEN-->
+            <div id="start-screen">
+                <button id="start" class="btn btn-primary">Start Quiz</button>
+            </div>
+            <!-- QUESTION SCREEN-->
             <div id="question-screen">
                 <h3 id="question-text">Question Text Here:</h3>
                 <div id="response-list">
                 </div>
-                <h4 id="response-correct">isCorrect</h4>
             </div>
+            <!-- RESULTS SCREEN-->
             <div id="result-screen">
                 <h3>All Done!</h3>
-                <div><h4>Final Score: </h4><span id="finalScore"></span></div>
-                <label for="initials">Initials:</label>
-                <input type="text" id="initials">
-                <button id="submit" class="btn btn-primary">Submit</button>
+                <div>
+                    <span>Final Score: </span>
+                    <span id="finalScore"></span>
+                </div>
+                <div id="initial-entry" class="form-inline mt-2">
+                    <label for="initials" class="col-form-label mr-2">Initials:</label>
+                    <input type="text" id="initials" class="form-control mr-2">
+                    <button id="btnSubmitScore" class="btn btn-primary">Submit</button>
+                </div>
             </div>
+            <!-- SCORES SCREEN-->
+            <div id="scores-screen">
+                <h1>High Scores</h1>
+                <ol id="high-score-list"></ol>
+                <button id="btnBack" class="btn btn-primary">Go Back</button>
+                <button id="btnClearScores" class="btn btn-primary">Clear High Scores</button>
+            </div>
+            <h4 id="response-correct">isCorrect</h4>
         </div>
 
     </div>

@@ -10,14 +10,19 @@ var questions = [
         answer: "parentheses"
     },
     {
-        title: "At the root scope what is 'this'?",
-        choices: ["window", "document", "undefined", "null"],
-        answer: "window"
+        title: "Which is the following is not a valid variable name?",
+        choices: ["my_var", "my-var", "myVar"],
+        answer: "my-var"
     },
     {
-        title: "The condition in an if / else statement is enclosed within ____.",
-        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        answer: "parentheses"
+        title: "True or False, All if statements must have an 'else'?",
+        choices: ["true", "false"],
+        answer: "false"
+    },
+    {
+        title: "What does a function with no return statement return?",
+        choices: ["null", "0", "-1", "undefined"],
+        answer: "undefined"
     },
     ///etc.
 ];

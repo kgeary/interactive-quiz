@@ -1,5 +1,11 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 #wrapper {
-    background-color: lightgray;
+    background-color: whitesmoke;
     width: 75%;
     min-height: 400px;
     margin: 2rem auto;
@@ -12,9 +18,18 @@
     margin: auto;
 }
 
+#start-screen {
+    margin: auto;
+}
+
 #question-screen,
-#result-screen {
+#result-screen,
+#scores-screen {
     display: none;
+}
+
+#question-text {
+    margin-bottom: 2rem;
 }
 
 #response-list {
@@ -36,5 +51,17 @@
     margin-top: 1rem;
     font-style: italic;
     font-size: 16px;
-    color: #444;
+    color: gray;
+}
+
+ol {
+    list-style-position: inside;
+    padding-left: 0;
+}
+ol li {
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+    padding: 0.25rem 1rem;
+    margin: 0.5rem 0.5rem 0.5rem 0;
 }
