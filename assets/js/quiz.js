@@ -1,4 +1,5 @@
 const TIME_PER_QUESTION = 15;
+const WRONG_PENALTY = 15;
 const TIME_SHOW_CORRECT_MS = 1500;
 const MAX_SCORES = 5;
 
@@ -28,12 +29,11 @@ const btnClearScoresEl = document.getElementById("btnClearScores");
 let timeRemaining = 0;
 let tmrInterval;
 let questionIndex = 0;
-let questionAnswer = "";
-let highScores = [];
+let highScores = JSON.parse(localStorage.getItem("high-scores")) || [];
 let currentScreen = screenStartEl;
 let responseTimeoutId;
 
-/* SETUP EVENT LISTENERS */
+// SETUP EVENT LISTENERS
 viewHighEl.addEventListener("click", handleViewHigh);
 btnStartEl.addEventListener("click", handleStartGame);
 responseListEl.addEventListener("click", handleResponse);
@@ -41,12 +41,17 @@ btnBackEl.addEventListener("click", handleBack);
 btnClearScoresEl.addEventListener("click", handleClearscores);
 btnSubmitScoreEl.addEventListener("click", handleSubmitScore);
 
-/* EVENT HANDLERS  */
+//****************************************
+// EVENT HANDLERS
+//****************************************
+// View High Scores
 function handleViewHigh() {
     stopTimer();
+    refreshScoreList();
     showScreen(screenScoresEl);
 }
 
+// Start Game
 function handleStartGame() {
     console.log("START");
     questionIndex = 0;
@@ -57,13 +62,15 @@ function handleStartGame() {
     tmrInterval = setInterval(timerEvent, 1000);
 }
 
+// Response Click
 function handleResponse(event) {
-    if (event.target.name === undefined) { return; }
-    let answer = event.target.name;
-    let isCorrect = (answer === questionAnswer);
+    
+    if (!event.target.matches("button")) { return; }
+    
+    let isCorrect = event.target.getAttribute("data-answer") === "true";
 
     if (!isCorrect) {
-        timeRemaining = (timeRemaining >= 15) ? (timeRemaining - 15) : 0;
+        timeRemaining = (timeRemaining >= WRONG_PENALTY) ? (timeRemaining - WRONG_PENALTY) : 0;
     }
 
     showResponse(isCorrect);
@@ -78,22 +85,34 @@ function handleResponse(event) {
     }
 }
 
-function handleBack() {
-    showScreen(screenStartEl);
-}
-
-function handleClearscores() {
-    highScores = [];
-    refreshScoreList();
-}
-
+// Submit High Score
 function handleSubmitScore() {
     let initials = document.getElementById("initials");
     addHighScore(initials.value, timeRemaining);
     showScreen(screenScoresEl);
 }
 
-/* HELPER FUNCTIONS */
+// Go Back to Start
+function handleBack() {
+    showScreen(screenStartEl);
+}
+
+// Clear Scores
+function handleClearscores() {
+    highScores = [];
+    updateStorage();
+    refreshScoreList();
+}
+
+//****************************************
+// HELPER FUNCTIONS
+//****************************************
+// Update Client Storage with High Scores list
+function updateStorage() {
+    localStorage.setItem("high-scores", JSON.stringify(highScores));
+}
+
+// 1-sec Timer Event
 function timerEvent() {
     timeRemaining--;
     spanTimeEl.textContent = timeRemaining;
@@ -105,20 +124,25 @@ function timerEvent() {
     }
 }
 
+// Stop the 1-sec Timer
 function stopTimer() {
     clearInterval(tmrInterval);
 }
 
+// Update the Display Time
 function updateTimeDisplay() {
     timeRemainEl.textContent = timeRemaining;
 }
 
+// Add High Score to the List
 function addHighScore(initials, score) {
     highScores.push({ "initials": initials, "score": score });
     highScores.sort(function (a, b) {return b.score - a.score;});
+    updateStorage();
     refreshScoreList();
 }
 
+// Refresh the High Scores List
 function refreshScoreList() {
     scoresListEl.innerHTML = ""; // Clear Out old High Scores
     let numDisplay = highScores.length < MAX_SCORES ? highScores.length : MAX_SCORES;
@@ -129,15 +153,12 @@ function refreshScoreList() {
     }
 }
 
-
-
+// Load the current Question
 function loadCurrentQuestion() {
     let question = questions[questionIndex];
-    questionAnswer = question.answer;
     questionTextEl.textContent = question.title;
     buildResponseList(question);
 }
-
 
 // Temporarily pop-up a text showing if they got it right or wrong
 function showResponse(isCorrect) {
@@ -151,7 +172,7 @@ function showResponse(isCorrect) {
     }, TIME_SHOW_CORRECT_MS);
 }
 
-// Build the Question Response List
+// Build the Question Response List for the provided question
 function buildResponseList(question) {
     responseListEl.innerHTML = "";
     for (let index = 0; index < question.choices.length; index++) {
@@ -164,8 +185,8 @@ function buildResponseList(question) {
 function createResponseButton(question, index) {
     let text = question.choices[index];
     let btn = document.createElement("button");
-    btn.className = "btn btn-primary btn-choice";
-    btn.name = text;
+    btn.setAttribute("class", "btn btn-primary btn-choice");
+    btn.setAttribute("data-answer", (text === question.answer));
     btn.textContent = (index + 1) + ". " + text;
     return btn;
 }
