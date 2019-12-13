@@ -1,5 +1,6 @@
 const TIME_PER_QUESTION = 15;
-const TIME_PER_SHOW_CORRECT_MS = 1500;
+const TIME_SHOW_CORRECT_MS = 1500;
+const MAX_SCORES = 5;
 
 // Header Content
 const spanTimeEl = document.getElementById("current-time");
@@ -17,7 +18,7 @@ const questionTextEl = document.getElementById("question-text");
 const responseListEl = document.getElementById("response-list");
 const responseCorrectEl = document.getElementById("response-correct");
 // Results Screen Content
-const finalScoreEl = document.getElementById("finalScore");
+const timeRemainEl = document.getElementById("time-remain");
 const btnSubmitScoreEl = document.getElementById("btnSubmitScore");
 // Scores Screen Content
 const scoresListEl = document.getElementById("high-score-list");
@@ -32,19 +33,21 @@ let highScores = [];
 let currentScreen = screenStartEl;
 let responseTimeoutId;
 
-/* EVENT LISTENERS */
-viewHighEl.addEventListener("click", function () {
+/* SETUP EVENT LISTENERS */
+viewHighEl.addEventListener("click", handleViewHigh);
+btnStartEl.addEventListener("click", handleStartGame);
+responseListEl.addEventListener("click", handleResponse);
+btnBackEl.addEventListener("click", handleBack);
+btnClearScoresEl.addEventListener("click", handleClearscores);
+btnSubmitScoreEl.addEventListener("click", handleSubmitScore);
+
+/* EVENT HANDLERS  */
+function handleViewHigh() {
     stopTimer();
     showScreen(screenScoresEl);
-});
+}
 
-btnStartEl.addEventListener("click", startGame);
-responseListEl.addEventListener("click", handleResponse);
-btnBackEl.addEventListener("click", goBack);
-btnClearScoresEl.addEventListener("click", clearScores);
-btnSubmitScoreEl.addEventListener("click", submitScores);
-
-function startGame() {
+function handleStartGame() {
     console.log("START");
     questionIndex = 0;
     timeRemaining = TIME_PER_QUESTION * questions.length;
@@ -52,72 +55,6 @@ function startGame() {
     loadCurrentQuestion();
     showScreen(screenQuestionEl);
     tmrInterval = setInterval(timerEvent, 1000);
-}
-
-function stopTimer() {
-    clearInterval(tmrInterval);
-}
-
-function submitScores() {
-    let initials = document.getElementById("initials");
-    addHighScore(initials.value, timeRemaining);
-    showScreen(screenScoresEl);
-}
-
-function goBack() {
-    showScreen(screenStartEl);
-}
-
-function clearScores() {
-    highScores = [];
-    refreshScoreList();
-}
-
-function updateResults() {
-    finalScoreEl.textContent = timeRemaining;
-}
-
-function addHighScore(initials, finalScore) {
-    if (highScores.filter(i => i.score >= finalScore).length < 5) {
-        console.log("This is a new high score");
-        highScores.push({ "initials": initials, "score": finalScore });
-        highScores.sort(function (a, b) {
-            if (a.score === b.score) { return 0; }
-            else if (a.score < b.score) { return 1; }
-            else { return -1; }
-        });
-    } else {
-        console.log("Not a high score");
-    }
-    refreshScoreList();
-}
-
-function refreshScoreList() {
-    scoresListEl.innerHTML = ""; // Clear Out old High Scores
-    let numDisplay = highScores.length < 3 ? highScores.length : 3;
-    for (let index = 0; index < numDisplay; index++) {
-        let li = document.createElement("li");
-        li.textContent = highScores[index].initials + ": " + highScores[index].score;
-        scoresListEl.appendChild(li);
-    }
-}
-
-function timerEvent() {
-    timeRemaining--;
-    spanTimeEl.textContent = timeRemaining;
-
-    if (timeRemaining < 1) {
-        stopTimer();
-        updateResults();
-        showScreen(screenResultEl);
-    }
-}
-
-function loadCurrentQuestion() {
-    let question = questions[questionIndex];
-    questionAnswer = question.answer;
-    questionTextEl.textContent = question.title;
-    buildResponseList(question);
 }
 
 function handleResponse(event) {
@@ -136,10 +73,71 @@ function handleResponse(event) {
         loadCurrentQuestion();
     } else {
         stopTimer();
-        updateResults();
+        updateTimeDisplay();
         showScreen(screenResultEl);
     }
 }
+
+function handleBack() {
+    showScreen(screenStartEl);
+}
+
+function handleClearscores() {
+    highScores = [];
+    refreshScoreList();
+}
+
+function handleSubmitScore() {
+    let initials = document.getElementById("initials");
+    addHighScore(initials.value, timeRemaining);
+    showScreen(screenScoresEl);
+}
+
+/* HELPER FUNCTIONS */
+function timerEvent() {
+    timeRemaining--;
+    spanTimeEl.textContent = timeRemaining;
+
+    if (timeRemaining < 1) {
+        stopTimer();
+        updateTimeDisplay();
+        showScreen(screenResultEl);
+    }
+}
+
+function stopTimer() {
+    clearInterval(tmrInterval);
+}
+
+function updateTimeDisplay() {
+    timeRemainEl.textContent = timeRemaining;
+}
+
+function addHighScore(initials, score) {
+    highScores.push({ "initials": initials, "score": score });
+    highScores.sort(function (a, b) {return b.score - a.score;});
+    refreshScoreList();
+}
+
+function refreshScoreList() {
+    scoresListEl.innerHTML = ""; // Clear Out old High Scores
+    let numDisplay = highScores.length < MAX_SCORES ? highScores.length : MAX_SCORES;
+    for (let index = 0; index < numDisplay; index++) {
+        let li = document.createElement("li");
+        li.textContent = highScores[index].initials + ": " + highScores[index].score;
+        scoresListEl.appendChild(li);
+    }
+}
+
+
+
+function loadCurrentQuestion() {
+    let question = questions[questionIndex];
+    questionAnswer = question.answer;
+    questionTextEl.textContent = question.title;
+    buildResponseList(question);
+}
+
 
 // Temporarily pop-up a text showing if they got it right or wrong
 function showResponse(isCorrect) {
@@ -150,7 +148,7 @@ function showResponse(isCorrect) {
     responseCorrectEl.style.visibility = "visible";
     responseTimeoutId = setTimeout(function () {
         responseCorrectEl.style.visibility = "hidden";
-    }, TIME_PER_SHOW_CORRECT_MS);
+    }, TIME_SHOW_CORRECT_MS);
 }
 
 // Build the Question Response List
