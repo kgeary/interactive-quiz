@@ -19,7 +19,7 @@ const questionTextEl = document.getElementById("question-text");
 const responseListEl = document.getElementById("response-list");
 const responseCorrectEl = document.getElementById("response-correct");
 // Results Screen Content
-const timeRemainEl = document.getElementById("time-remain");
+const finalTimeEl = document.getElementById("final-time");
 const btnSubmitScoreEl = document.getElementById("btnSubmitScore");
 // Scores Screen Content
 const scoresListEl = document.getElementById("high-score-list");
@@ -56,7 +56,7 @@ function handleStartGame() {
     console.log("START");
     questionIndex = 0;
     timeRemaining = TIME_PER_QUESTION * questions.length;
-    spanTimeEl.textContent = timeRemaining;
+    updateTimeDisplay();
     loadCurrentQuestion();
     showScreen(screenQuestionEl);
     tmrInterval = setInterval(timerEvent, 1000);
@@ -71,11 +71,12 @@ function handleResponse(event) {
 
     if (!isCorrect) {
         timeRemaining = (timeRemaining >= WRONG_PENALTY) ? (timeRemaining - WRONG_PENALTY) : 0;
+        updateTimeDisplay();
     }
 
     showResponse(isCorrect);
 
-    if (questionIndex < questions.length - 1) {
+    if ((questionIndex < questions.length - 1) && (timeRemaining > 0)) {
         questionIndex++;
         loadCurrentQuestion();
     } else {
@@ -115,11 +116,10 @@ function updateStorage() {
 // 1-sec Timer Event
 function timerEvent() {
     timeRemaining--;
-    spanTimeEl.textContent = timeRemaining;
+    updateTimeDisplay();
 
     if (timeRemaining < 1) {
         stopTimer();
-        updateTimeDisplay();
         showScreen(screenResultEl);
     }
 }
@@ -131,7 +131,8 @@ function stopTimer() {
 
 // Update the Display Time
 function updateTimeDisplay() {
-    timeRemainEl.textContent = timeRemaining;
+    spanTimeEl.textContent = timeRemaining;
+    finalTimeEl.textContent = timeRemaining;
 }
 
 // Add High Score to the List
