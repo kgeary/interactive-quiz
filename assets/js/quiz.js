@@ -76,7 +76,7 @@ function clearScores() {
 function updateResults() {
     finalScoreEl.textContent = timeRemaining;
 }
-a
+
 function addHighScore(initials, finalScore) {
     if (highScores.filter(i => i.score >= finalScore).length < 5) {
         console.log("This is a new high score");
