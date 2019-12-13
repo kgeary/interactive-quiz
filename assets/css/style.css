@@ -19,7 +19,12 @@
 }
 
 #start-screen {
+    text-align: center;
     margin: auto;
+}
+
+#start-screen p {
+    padding: 2rem;
 }
 
 #question-screen,
