@@ -19,6 +19,7 @@ const responseListEl = document.getElementById("response-list");
 const responseCorrectEl = document.getElementById("response-correct");
 // Results Screen Content
 const finalTimeEl = document.getElementById("final-time");
+const initialsInputEl = document.getElementById("initials-input");
 const btnSubmitScoreEl = document.getElementById("btnSubmitScore");
 // Scores Screen Content
 const scoresListEl = document.getElementById("high-score-list");
@@ -61,7 +62,7 @@ function handleStartGame() {
     tmrInterval = setInterval(timerEvent, 1000);
 }
 
-// Response Click
+// Response Clicked - Handle when user selects one of the question choices
 function handleResponse(event) {
     
     if (!event.target.matches("button")) { return; }
@@ -87,7 +88,7 @@ function handleResponse(event) {
 
 // Submit High Score
 function handleSubmitScore() {
-    let initials = document.getElementById("initials").value.trim();
+    let initials = initialsInputEl.value.trim();
     if (initials.length < 2) {
         alert("Initials must be at least 2 characters");
         return;
@@ -98,6 +99,8 @@ function handleSubmitScore() {
 
 // Go Back to Start
 function handleBack() {
+    timeRemaining = "-";
+    updateTimeDisplay();
     showScreen(screenStartEl);
 }
 
@@ -140,7 +143,7 @@ function updateTimeDisplay() {
 
 // Add High Score to the List
 function addHighScore(initials, score) {
-    highScores.push({ "initials": initials, "score": score });
+    highScores.push({ "initials": initials, "score": score, "id": highScores.length});
     highScores.sort(function (a, b) {return b.score - a.score;});
     updateStorage();
     refreshScoreList();
@@ -152,6 +155,9 @@ function refreshScoreList() {
     let numDisplay = highScores.length < MAX_SCORES ? highScores.length : MAX_SCORES;
     for (let index = 0; index < numDisplay; index++) {
         let li = document.createElement("li");
+        let classes = "score-item alert-info";
+        if (highScores[index].id === highScores.length-1) classes += " current";
+        li.setAttribute("class", classes);
         li.textContent = highScores[index].initials + ": " + highScores[index].score;
         scoresListEl.appendChild(li);
     }

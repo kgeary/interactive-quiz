@@ -9,6 +9,19 @@ body {
     justify-content: space-between;
 }
 
+#high-scores-link:hover {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+#time {
+    color: whitesmoke;
+}
+
+#current-time, #final-time {
+    font-weight: bold;
+}
+
 #wrapper {
     background-color: whitesmoke;
     width: 90%;
@@ -20,6 +33,7 @@ body {
     flex-direction: column;
 }
 
+/* START SCREEN */
 #start {
     margin: auto;
 }
@@ -33,12 +47,14 @@ body {
     padding: 2rem;
 }
 
+/* Non-default screens */
 #question-screen,
 #result-screen,
 #scores-screen {
     display: none;
 }
 
+/* Question Screen */
 #question-text {
     margin-bottom: 2rem;
 }
@@ -62,17 +78,21 @@ body {
     margin-top: 1rem;
     font-style: italic;
     font-size: 16px;
-    color: gray;
 }
+
 /* High Scores List */
-ol {
+#high-score-list {
     list-style-position: inside;
     padding-left: 0;
 }
-ol li {
-    background-color: #007bff;
-    color: white;
+.score-item {
     border-radius: 10px;
     padding: 0.25rem 1rem;
     margin: 0.5rem 0.5rem 0.5rem 0;
 }
+
+.score-item.current {
+    border: 1px solid #446E9B;
+    font-weight: bold;
+}
+
