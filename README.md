@@ -21,3 +21,7 @@ A 15-second runoff penality is assessed for incorrect answers.  The top 5 high s
 
 ## High Scores List Screen
 ![Start SCreen](/assets/images/scorelist.png)
+
+## This site uses these sounds from freesound.org under the Creative Commons license:
+Correct by LittleRainySeasons ( https://freesound.org/people/LittleRainySeasons/sounds/335908/ )  
+Wrong by Raclure ( https://freesound.org/people/Raclure/sounds/483598/ )

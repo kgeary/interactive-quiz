@@ -26,6 +26,11 @@ const scoresListEl = document.getElementById("high-score-list");
 const btnBackEl = document.getElementById("btnBack");
 const btnClearScoresEl = document.getElementById("btnClearScores");
 
+const chkEnableSoundEl = document.getElementById("enable-sound");
+
+const sndCorrect = new Audio('assets/sound/335908__littlerainyseasons__correct.mp3');
+const sndWrong = new Audio('assets/sound/483598__raclure__wrong.mp3')
+
 let timeRemaining = 0;
 let tmrInterval;
 let questionIndex = 0;
@@ -70,8 +75,11 @@ function handleResponse(event) {
     let isCorrect = event.target.getAttribute("data-answer") === "true";
 
     if (!isCorrect) {
+        playSound(sndWrong);
         timeRemaining = (timeRemaining >= WRONG_PENALTY) ? (timeRemaining - WRONG_PENALTY) : 0;
         updateTimeDisplay();
+    } else {
+        playSound(sndCorrect);
     }
 
     showResponse(isCorrect);
@@ -106,7 +114,7 @@ function handleSubmitScoreKeyPress(event) {
 
 // Go Back to Start
 function handleBack() {
-    timeRemaining = "-";
+    timeRemaining = 0;
     updateTimeDisplay();
     showScreen(screenStartEl);
 }
@@ -216,3 +224,9 @@ function showScreen(el) {
     el.style.display = "block";
     currentScreen = el;
 }
+
+function playSound(audio) {
+    if (chkEnableSoundEl.checked) {
+        audio.play();
+    }
+} 
