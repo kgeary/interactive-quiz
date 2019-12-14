@@ -1,28 +1,28 @@
 var questions = [
     {
-        title: "Commonly used data types DO NOT include:",
-        choices: ["strings", "booleans", "alerts", "numbers"],
-        answer: "alerts"
+        title: "Who won the last super bowl (2019)?",
+        choices: ["Eagles", "Rams", "Chiefs", "Patriots"],
+        answer: "Patriots"
     },
     {
-        title: "The condition in an if / else statement is enclosed within ____.",
-        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        answer: "parentheses"
+        title: "Who won the 2018 NFL MVP?",
+        choices: ["Tom Brady", "Patrick Mahomes", "Aaron Donald", "Lamar Jackson"],
+        answer: "Patrick Mahomes"
     },
     {
-        title: "Which is the following is not a valid variable name?",
-        choices: ["my_var", "my-var", "myVar"],
-        answer: "my-var"
+        title: "Which city does not currently have a NFL team?",
+        choices: ["Kansas City", "St. Louis", "Baltimore", "Jacksonville"],
+        answer: "St. Louis"
     },
     {
-        title: "True or False, All if statements must have an 'else'?",
-        choices: ["true", "false"],
-        answer: "false"
+        title: "How many divisions are in the NFL?",
+        choices: ["2", "4", "6", "8"],
+        answer: "8"
     },
     {
-        title: "What does a function with no return statement return?",
-        choices: ["null", "0", "-1", "undefined"],
-        answer: "undefined"
+        title: "What year did the NFL and AFL merge?",
+        choices: ["1957", "1966", "1972", "1974"],
+        answer: "1966"
     },
     ///etc.
 ];
