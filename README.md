@@ -1,6 +1,10 @@
 # web-apis - NFL Quiz
 ## Purpose
-This is an interactive multiple choice quiz to test your knowledge of the NFL. Click on the responses to enter your answer.  Go fast as you are racing against the clock.
+This app allows yous to take interactive multiple choice quizzes.  Select the quiz you would like to take and test your knowledge. Click on the responses to enter your answer.  Go fast as you are racing against the clock.
+
+# Currently Available Quizzes
+* NFL Quiz
+* Code Quiz
 
 ## Scoring
 Your score is determined by the time remaining once you have answered all questions (or if time runs out).  
@@ -10,6 +14,8 @@ A 15-second runoff penality is assessed for incorrect answers.  The top 5 high s
 [https://kgeary.github.io/web-apis](https://kgeary.github.io/web-apis)
 
 # Screenshots
+## Quiz Select Screen
+![Quiz Select Screen](/assets/images/select.png)
 ## Start Screen
 ![Start Screen](/assets/images/start.png)
 
