@@ -19,7 +19,7 @@ const responseListEl = document.getElementById("response-list");
 const responseCorrectEl = document.getElementById("response-correct");
 // Results Screen Content
 const finalTimeEl = document.getElementById("final-time");
-const initialsInputEl = document.getElementById("initials-input");
+const inpInitialsEl = document.getElementById("initials-input");
 const btnSubmitScoreEl = document.getElementById("btnSubmitScore");
 // Scores Screen Content
 const scoresListEl = document.getElementById("high-score-list");
@@ -39,7 +39,8 @@ btnStartEl.addEventListener("click", handleStartGame);
 responseListEl.addEventListener("click", handleResponse);
 btnBackEl.addEventListener("click", handleBack);
 btnClearScoresEl.addEventListener("click", handleClearscores);
-btnSubmitScoreEl.addEventListener("click", handleSubmitScore);
+btnSubmitScoreEl.addEventListener("click", handleSubmitScoreClick);
+inpInitialsEl.addEventListener("keypress", handleSubmitScoreKeyPress);
 
 //****************************************
 // EVENT HANDLERS
@@ -53,7 +54,6 @@ function handleViewHigh() {
 
 // Start Game
 function handleStartGame() {
-    console.log("START");
     questionIndex = 0;
     timeRemaining = TIME_PER_QUESTION * questions.length;
     updateTimeDisplay();
@@ -86,15 +86,22 @@ function handleResponse(event) {
     }
 }
 
-// Submit High Score
-function handleSubmitScore() {
-    let initials = initialsInputEl.value.trim();
+// Submit High Score Click
+function handleSubmitScoreClick() {
+    let initials = inpInitialsEl.value.trim();
     if (initials.length < 2) {
         alert("Initials must be at least 2 characters");
         return;
     }
     addHighScore(initials, timeRemaining);
     showScreen(screenScoresEl);
+}
+
+// Submit High Score Keypress (enter)
+function handleSubmitScoreKeyPress(event) {
+    if (event.which === 13) {
+        handleSubmitScoreClick();
+    }
 }
 
 // Go Back to Start
