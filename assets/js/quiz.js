@@ -4,6 +4,7 @@ const TIME_SHOW_CORRECT_MS = 1500;
 const MAX_SCORES = 5;
 
 // Header Content
+const headerEl = document.getElementById("header");
 const spanTimeEl = document.getElementById("current-time");
 const viewHighEl = document.getElementById("high-scores-link");
 // Screen Divs
@@ -75,6 +76,7 @@ function handleQuizSelect(event) {
 // View High Scores
 function handleViewHigh() {
     stopTimer();
+    headerEl.setAttribute("style", "visibility: hidden;");
     refreshScoreList();
     showScreen(screenScoresEl);
 }
@@ -124,7 +126,7 @@ function handleSubmitScoreClick() {
         return;
     }
     addHighScore(initials, timeRemaining);
-    showScreen(screenScoresEl);
+    handleViewHigh();
 }
 
 // Submit High Score Keypress (enter)
@@ -137,6 +139,7 @@ function handleSubmitScoreKeyPress(event) {
 // Go Back to Start
 function handleBack() {
     timeRemaining = 0;
+    headerEl.setAttribute("style", "visibility: visible;");
     updateTimeDisplay();
     showScreen(screenSelectEl);
 }

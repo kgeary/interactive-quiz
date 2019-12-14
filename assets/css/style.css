@@ -2,7 +2,7 @@ body {
     background-image: url("https://kgeary.github.io/web-apis/assets/images/5-dots.png");
 }
 
-.header {
+#header {
     width: 100%;
     display: flex;
     margin-top: 0.5rem;
