@@ -27,23 +27,21 @@
         <div id="wrapper">
             <!-- SELECT QUIZ SCREEN -->
             <div id="select-screen">
-                <h1>Select a quiz from the following options:</h1>
+                <h3 class="list-heading">Select a quiz:</h3>
                 <ul id="quiz-select-list"></ul>
             </div>
             <!-- START SCREEN-->
             <div id="start-screen">
                 <h1 id="quiz-name"></h1>
                 <p>
-                    Answers questions and try to earn a high score.
-                    Your final score is determined by time remaining.
-                    Wrong answers result in a 15-second runoff.
-                    Good Luck!
+                    <span id="quiz-description"></span>
+                    Answers questions and try to earn a high score. Your final score is determined by time remaining. Wrong answers result in a 15-second runoff. Good Luck!
                 </p>
                 <button id="start" class="btn btn-primary">Start Quiz</button>
             </div>
             <!-- QUESTION SCREEN-->
             <div id="question-screen">
-                <h3 id="question-text">Question Text Here:</h3>
+                <h3 id="question-text" class="list-heading">Question Text Here:</h3>
                 <div id="response-list">
                 </div>
             </div>

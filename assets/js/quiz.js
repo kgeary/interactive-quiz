@@ -14,6 +14,7 @@ const screenResultEl = document.getElementById("result-screen");
 const screenScoresEl = document.getElementById("scores-screen");
 // Select Screen Content
 const selectQuizListEl = document.getElementById("quiz-select-list");
+const quizDescriptionEl = document.getElementById("quiz-description");
 // Start Screen Content
 const quizNameEl = document.getElementById("quiz-name");
 const btnStartEl = document.getElementById("start");
@@ -42,7 +43,7 @@ let highScores = JSON.parse(localStorage.getItem("high-scores")) || [];
 let currentScreenEl = screenSelectEl;
 let responseTimeoutId;
 let questions = [];
-let currentQuiz = "";
+let currentQuizName = "";
 
 // SETUP EVENT LISTENERS
 selectQuizListEl.addEventListener("click", handleQuizSelect);
@@ -63,9 +64,11 @@ buildQuizList();
 function handleQuizSelect(event) {
     if (!event.target.matches("button")) { return; }
     let quizIndex = event.target.getAttribute("data-id");
-    questions = quizzes[quizIndex].questions;
-    currentQuiz = quizzes[quizIndex].name;
-    quizNameEl.textContent = currentQuiz;
+    let quiz = quizzes[quizIndex];
+    questions = quiz.questions;
+    currentQuizName = quiz.name;
+    quizNameEl.textContent = currentQuizName;
+    quizDescriptionEl.textContent = quiz.description;
     showScreen(screenStartEl);
 }
 
@@ -177,7 +180,7 @@ function updateTimeDisplay() {
 
 // Add High Score to the List
 function addHighScore(initials, score) {
-    highScores.push({ "quiz": currentQuiz, "initials": initials, "score": score, "id": highScores.length});
+    highScores.push({ "quiz": currentQuizName, "initials": initials, "score": score, "id": highScores.length});
     highScores.sort(function (a, b) {return b.score - a.score;});
     updateStorage();
     refreshScoreList();
@@ -227,12 +230,14 @@ function buildResponseList(question) {
 
 // Create a single question response button
 function createResponseButton(question, index) {
+    let li = document.createElement("li");
     let text = question.choices[index];
     let btn = document.createElement("button");
     btn.setAttribute("class", "btn btn-primary btn-choice");
     btn.setAttribute("data-answer", (text === question.answer));
     btn.textContent = (index + 1) + ". " + text;
-    return btn;
+    li.appendChild(btn);
+    return li;
 }
 
 // Build a list of available Quizzes
@@ -245,11 +250,13 @@ function buildQuizList() {
 
 // Create a single quiz button
 function createQuizButton(name, index) {
+    let li = document.createElement("li");
     let btn = document.createElement("button");
     btn.textContent = name;
     btn.setAttribute("class", "btn btn-primary btn-choice");
     btn.setAttribute("data-id", index);
-    return btn;
+    li.appendChild(btn);
+    return li;
 }
 
 // Hide the current screen and show a new one

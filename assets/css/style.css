@@ -10,6 +10,11 @@ body {
     justify-content: space-between;
 }
 
+.list-heading {
+    margin-bottom: 2rem;
+}
+
+/* HEADER */
 #high-scores-link:hover {
     text-decoration: none;
     color: whitesmoke;
@@ -23,6 +28,7 @@ body {
     font-weight: bold;
 }
 
+/* MAIN CONTENT */
 #wrapper {
     background-color: whitesmoke;
     width: 90%;
@@ -35,20 +41,6 @@ body {
     border-radius: 10px;
 }
 
-/* START SCREEN */
-#start {
-    margin: auto;
-}
-
-#start-screen {
-    text-align: center;
-    margin: auto;
-}
-
-#start-screen p {
-    padding: 2rem;
-}
-
 /* Non-default screens */
 #start-screen,
 #question-screen,
@@ -57,11 +49,33 @@ body {
     display: none;
 }
 
-/* Question Screen */
-#question-text {
-    margin-bottom: 2rem;
+/* QUIZ SELECT SCREEN */
+#quiz-select-list {
+    list-style-type: none;
+    padding: 0;
+} 
+
+#quiz-select-list button {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+/* START SCREEN */
+#start-screen {
+    text-align: center;
+    margin: auto;
+}
+
+#start-screen p:last-of-type {
+    padding-bottom: 2rem;
+}
+
+#start {
+    margin: auto;
+}
+
+/* QUESTION SCREEN */
 #response-list {
     list-style-type: none;
     text-align: left;
@@ -73,6 +87,10 @@ body {
     padding-right: 1rem;
     border-radius: 15px;
     margin: 0.25rem;
+}
+
+.btn-choice:hover {
+    color: yellow;
 }
 
 #response-correct {
@@ -98,4 +116,3 @@ body {
     border: 1px solid #446E9B;
     font-weight: bold;
 }
-

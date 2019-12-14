@@ -1,6 +1,7 @@
 var quizzes = [
     {
         name: "NFL Quiz",
+        description: "Prepare to answer questions on the NFL.",
         questions: [
             {
                 title: "Who won the last super bowl (2019)?",
@@ -31,6 +32,7 @@ var quizzes = [
     },
     {
         name: "Code Quiz",
+        description: "Prepare to answer questions about javascript.",
         questions: [
             {
                 title: "Which is not considered a value type?",
