@@ -7,11 +7,15 @@ const MAX_SCORES = 5;
 const spanTimeEl = document.getElementById("current-time");
 const viewHighEl = document.getElementById("high-scores-link");
 // Screen Divs
+const screenSelectEl = document.getElementById("select-screen");
 const screenStartEl = document.getElementById("start-screen");
 const screenQuestionEl = document.getElementById("question-screen");
 const screenResultEl = document.getElementById("result-screen");
 const screenScoresEl = document.getElementById("scores-screen");
+// Select Screen Content
+const selectQuizListEl = document.getElementById("quiz-select-list");
 // Start Screen Content
+const quizNameEl = document.getElementById("quiz-name");
 const btnStartEl = document.getElementById("start");
 // Question Screen Content
 const questionTextEl = document.getElementById("question-text");
@@ -35,10 +39,13 @@ let timeRemaining = 0;
 let tmrInterval;
 let questionIndex = 0;
 let highScores = JSON.parse(localStorage.getItem("high-scores")) || [];
-let currentScreen = screenStartEl;
+let currentScreenEl = screenSelectEl;
 let responseTimeoutId;
+let questions = [];
+let currentQuiz = "";
 
 // SETUP EVENT LISTENERS
+selectQuizListEl.addEventListener("click", handleQuizSelect);
 viewHighEl.addEventListener("click", handleViewHigh);
 btnStartEl.addEventListener("click", handleStartGame);
 responseListEl.addEventListener("click", handleResponse);
@@ -47,9 +54,21 @@ btnClearScoresEl.addEventListener("click", handleClearscores);
 btnSubmitScoreEl.addEventListener("click", handleSubmitScoreClick);
 inpInitialsEl.addEventListener("keypress", handleSubmitScoreKeyPress);
 
+buildQuizList();
+
 //****************************************
 // EVENT HANDLERS
 //****************************************
+// Quiz Select
+function handleQuizSelect(event) {
+    if (!event.target.matches("button")) { return; }
+    let quizIndex = event.target.getAttribute("data-id");
+    questions = quizzes[quizIndex].questions;
+    currentQuiz = quizzes[quizIndex].name;
+    quizNameEl.textContent = currentQuiz;
+    showScreen(screenStartEl);
+}
+
 // View High Scores
 function handleViewHigh() {
     stopTimer();
@@ -116,7 +135,7 @@ function handleSubmitScoreKeyPress(event) {
 function handleBack() {
     timeRemaining = 0;
     updateTimeDisplay();
-    showScreen(screenStartEl);
+    showScreen(screenSelectEl);
 }
 
 // Clear Scores
@@ -158,7 +177,7 @@ function updateTimeDisplay() {
 
 // Add High Score to the List
 function addHighScore(initials, score) {
-    highScores.push({ "initials": initials, "score": score, "id": highScores.length});
+    highScores.push({ "quiz": currentQuiz, "initials": initials, "score": score, "id": highScores.length});
     highScores.sort(function (a, b) {return b.score - a.score;});
     updateStorage();
     refreshScoreList();
@@ -173,7 +192,7 @@ function refreshScoreList() {
         let classes = "score-item alert-info";
         if (highScores[index].id === highScores.length-1) classes += " current";
         li.setAttribute("class", classes);
-        li.textContent = highScores[index].initials + ": " + highScores[index].score;
+        li.textContent = highScores[index].initials + ": " + highScores[index].score + " (" + highScores[index].quiz + ")";
         scoresListEl.appendChild(li);
     }
 }
@@ -216,15 +235,33 @@ function createResponseButton(question, index) {
     return btn;
 }
 
-// Hide the current screen and show a new one
-function showScreen(el) {
-    if (currentScreen) {
-        currentScreen.style.display = "none"
+// Build a list of available Quizzes
+function buildQuizList() {
+    for (let index=0; index<quizzes.length; index++) {
+        let btn = createQuizButton(quizzes[index].name, index);
+        selectQuizListEl.appendChild(btn);
     }
-    el.style.display = "block";
-    currentScreen = el;
 }
 
+// Create a single quiz button
+function createQuizButton(name, index) {
+    let btn = document.createElement("button");
+    btn.textContent = name;
+    btn.setAttribute("class", "btn btn-primary btn-choice");
+    btn.setAttribute("data-id", index);
+    return btn;
+}
+
+// Hide the current screen and show a new one
+function showScreen(el) {
+    if (currentScreenEl) {
+        currentScreenEl.style.display = "none"
+    }
+    el.style.display = "block";
+    currentScreenEl = el;
+}
+
+// Play a sound
 function playSound(audio) {
     if (chkEnableSoundEl.checked) {
         audio.play();

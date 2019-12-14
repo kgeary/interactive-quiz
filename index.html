@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NFL Quiz</title>
+    <title>Quiz App</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -25,9 +25,14 @@
             </div>
         </div>
         <div id="wrapper">
+            <!-- SELECT QUIZ SCREEN -->
+            <div id="select-screen">
+                <h1>Select a quiz from the following options:</h1>
+                <ul id="quiz-select-list"></ul>
+            </div>
             <!-- START SCREEN-->
             <div id="start-screen">
-                <h1>NFL Quiz</h1>
+                <h1 id="quiz-name"></h1>
                 <p>
                     Answers questions and try to earn a high score.
                     Your final score is determined by time remaining.

@@ -50,6 +50,7 @@ body {
 }
 
 /* Non-default screens */
+#start-screen,
 #question-screen,
 #result-screen,
 #scores-screen {
