@@ -6,14 +6,13 @@ const MAX_SCORES = 5;
 // Header Content
 const spanTimeEl = document.getElementById("current-time");
 const viewHighEl = document.getElementById("high-scores-link");
-// Start Screen Content
-const btnStartEl = document.getElementById("start");
-
-// // Screen Divs
+// Screen Divs
 const screenStartEl = document.getElementById("start-screen");
 const screenQuestionEl = document.getElementById("question-screen");
 const screenResultEl = document.getElementById("result-screen");
 const screenScoresEl = document.getElementById("scores-screen");
+// Start Screen Content
+const btnStartEl = document.getElementById("start");
 // Question Screen Content
 const questionTextEl = document.getElementById("question-text");
 const responseListEl = document.getElementById("response-list");
@@ -88,8 +87,12 @@ function handleResponse(event) {
 
 // Submit High Score
 function handleSubmitScore() {
-    let initials = document.getElementById("initials");
-    addHighScore(initials.value, timeRemaining);
+    let initials = document.getElementById("initials").value.trim();
+    if (initials.length < 2) {
+        alert("Initials must be at least 2 characters");
+        return;
+    }
+    addHighScore(initials, timeRemaining);
     showScreen(screenScoresEl);
 }
 
