@@ -46,18 +46,6 @@ let responseTimeoutId;
 let questions = [];
 let currentQuizName = "";
 
-// SETUP EVENT LISTENERS
-selectQuizListEl.addEventListener("click", handleQuizSelect);
-viewHighEl.addEventListener("click", handleViewHigh);
-btnStartEl.addEventListener("click", handleStartGame);
-responseListEl.addEventListener("click", handleResponse);
-btnBackEl.addEventListener("click", handleBack);
-btnClearScoresEl.addEventListener("click", handleClearscores);
-btnSubmitScoreEl.addEventListener("click", handleSubmitScoreClick);
-inpInitialsEl.addEventListener("keypress", handleSubmitScoreKeyPress);
-
-buildQuizList();
-
 //****************************************
 // EVENT HANDLERS
 //****************************************
@@ -277,3 +265,16 @@ function playSound(audio) {
         audio.play();
     }
 } 
+
+// SETUP EVENT LISTENERS
+selectQuizListEl.addEventListener("click", handleQuizSelect);
+viewHighEl.addEventListener("click", handleViewHigh);
+btnStartEl.addEventListener("click", handleStartGame);
+responseListEl.addEventListener("click", handleResponse);
+btnBackEl.addEventListener("click", handleBack);
+btnClearScoresEl.addEventListener("click", handleClearscores);
+btnSubmitScoreEl.addEventListener("click", handleSubmitScoreClick);
+inpInitialsEl.addEventListener("keypress", handleSubmitScoreKeyPress);
+
+// Build the Initial Quiz List
+buildQuizList();
