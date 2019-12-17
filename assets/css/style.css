@@ -112,6 +112,7 @@ body {
     list-style-position: inside;
     padding-left: 0;
 }
+
 .score-item {
     border-radius: 10px;
     padding: 0.25rem 1rem;
@@ -126,4 +127,10 @@ body {
 #score-button-back, 
 #score-button-clear {
     margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 767px) {
+    #wrapper {
+        width: 100%;
+    }
 }
