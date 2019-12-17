@@ -5,38 +5,39 @@ const MAX_SCORES = 5;
 
 // Header Content
 const headerEl = document.getElementById("header");
-const spanTimeEl = document.getElementById("current-time");
-const viewHighEl = document.getElementById("high-scores-link");
+const spanTimeEl = document.getElementById("header-current-time");
+const viewHighEl = document.getElementById("header-scores-link");
+const chkEnableSoundEl = document.getElementById("header-enable-sound");
 // Screen Divs
 const screenSelectEl = document.getElementById("select-screen");
 const screenStartEl = document.getElementById("start-screen");
 const screenQuestionEl = document.getElementById("question-screen");
 const screenResultEl = document.getElementById("result-screen");
-const screenScoresEl = document.getElementById("scores-screen");
+const screenScoresEl = document.getElementById("score-screen");
 // Select Screen Content
 const selectQuizListEl = document.getElementById("quiz-select-list");
-const quizDescriptionEl = document.getElementById("quiz-description");
+const quizDescriptionEl = document.getElementById("quiz-select-description");
 // Start Screen Content
-const quizNameEl = document.getElementById("quiz-name");
-const btnStartEl = document.getElementById("start");
+const quizNameEl = document.getElementById("start-quiz-name");
+const btnStartEl = document.getElementById("start-button");
 // Question Screen Content
 const questionTextEl = document.getElementById("question-text");
-const responseListEl = document.getElementById("response-list");
-const responseCorrectEl = document.getElementById("response-correct");
+const responseListEl = document.getElementById("question-response-list");
+const responseCorrectEl = document.getElementById("question-response-correct");
 // Results Screen Content
-const finalTimeEl = document.getElementById("final-time");
-const inpInitialsEl = document.getElementById("initials-input");
-const btnSubmitScoreEl = document.getElementById("btnSubmitScore");
+const finalTimeEl = document.getElementById("result-final-time");
+const inpInitialsEl = document.getElementById("result-initials-input");
+const btnSubmitScoreEl = document.getElementById("result-button-submit");
 // Scores Screen Content
-const scoresListEl = document.getElementById("high-score-list");
-const btnBackEl = document.getElementById("btnBack");
-const btnClearScoresEl = document.getElementById("btnClearScores");
+const scoresListEl = document.getElementById("score-list");
+const btnBackEl = document.getElementById("score-button-back");
+const btnClearScoresEl = document.getElementById("score-button-clear");
 
-const chkEnableSoundEl = document.getElementById("enable-sound");
-
+// Sound Files
 const sndCorrect = new Audio('assets/sound/335908__littlerainyseasons__correct.mp3');
 const sndWrong = new Audio('assets/sound/483598__raclure__wrong.mp3')
 
+// State Variables
 let timeRemaining = 0;
 let tmrInterval;
 let questionIndex = 0;
@@ -169,7 +170,7 @@ function updateTimeDisplay() {
     finalTimeEl.textContent = timeRemaining;
 }
 
-// Add High Score to the List
+// Add High Score to the List, Sort by Scores, Store Result, Update Page
 function addHighScore(initials, score) {
     highScores.push({ "quiz": currentQuizName, "initials": initials, "score": score, "id": highScores.length});
     highScores.sort(function (a, b) {return b.score - a.score;});
@@ -177,7 +178,7 @@ function addHighScore(initials, score) {
     refreshScoreList();
 }
 
-// Refresh the High Scores List
+// Refresh the High Scores List Element
 function refreshScoreList() {
     scoresListEl.innerHTML = ""; // Clear Out old High Scores
     let numDisplay = highScores.length < MAX_SCORES ? highScores.length : MAX_SCORES;
@@ -191,15 +192,16 @@ function refreshScoreList() {
     }
 }
 
-// Load the current Question
+// Load the current Question Onto the Page
 function loadCurrentQuestion() {
     let question = questions[questionIndex];
     questionTextEl.textContent = question.title;
     buildResponseList(question);
 }
 
-// Temporarily pop-up a text showing if they got it right or wrong
+// Temporarily pop-up a text showing right or wrong
 function showResponse(isCorrect) {
+    // Clear the response timeout if it's still active from previous question
     if (responseTimeoutId) {
         clearTimeout(responseTimeoutId);
     }

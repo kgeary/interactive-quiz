@@ -14,14 +14,14 @@
     <div class="container">
         <!-- Header Bar -->
         <div id="header">
-            <a href="#" id="high-scores-link">View Scores</a>
+            <a href="#" id="header-scores-link">View Scores</a>
             <div>
-                <label for="enable-sound">Enable Sounds</label>
-                <input type="checkbox" id="enable-sound">
+                <label for="header-enable-sound">Enable Sounds</label>
+                <input type="checkbox" id="header-enable-sound">
             </div>
             <div id="time">
                 <span>Time: </span>
-                <span id="current-time">0</span>
+                <span id="header-current-time">0</span>
             </div>
         </div>
         <div id="wrapper">
@@ -32,17 +32,17 @@
             </div>
             <!-- START SCREEN-->
             <div id="start-screen">
-                <h1 id="quiz-name"></h1>
+                <h1 id="start-quiz-name">Quiz Name</h1>
                 <p>
-                    <span id="quiz-description"></span>
+                    <span id="quiz-select-description"></span>
                     Answers questions and try to earn a high score. Your final score is determined by time remaining. Wrong answers result in a 15-second runoff. Good Luck!
                 </p>
-                <button id="start" class="btn btn-primary">Start Quiz</button>
+                <button id="start-button" class="btn btn-primary">Start Quiz</button>
             </div>
             <!-- QUESTION SCREEN-->
             <div id="question-screen">
                 <h3 id="question-text" class="list-heading">Question Text Here:</h3>
-                <div id="response-list">
+                <div id="question-response-list">
                 </div>
             </div>
             <!-- RESULTS SCREEN-->
@@ -50,22 +50,22 @@
                 <h3>All Done!</h3>
                 <div>
                     <span>Final Score: </span>
-                    <span id="final-time"></span>
+                    <span id="result-final-time"></span>
                 </div>
                 <div id="initial-entry" class="form-inline mt-2">
-                    <label for="initials" class="col-form-label mr-2 mb-1">Initials:</label>
-                    <input type="text" id="initials-input" class="form-control mr-2 mb-1" maxlength="3">
-                    <button id="btnSubmitScore" class="btn btn-primary mb-1">Submit</button>
+                    <label for="result-initials-input" class="col-form-label mr-2 mb-1">Initials:</label>
+                    <input type="text" id="result-initials-input" class="form-control mr-2 mb-1" maxlength="3">
+                    <button id="result-button-submit" class="btn btn-primary mb-1">Submit</button>
                 </div>
             </div>
             <!-- SCORES SCREEN-->
-            <div id="scores-screen">
+            <div id="score-screen">
                 <h1>High Scores</h1>
-                <ol id="high-score-list"></ol>
-                <button id="btnBack" class="btn btn-primary">Go Back</button>
-                <button id="btnClearScores" class="btn btn-primary">Clear High Scores</button>
+                <ol id="score-list"></ol>
+                <button id="score-button-back" class="btn btn-primary">Go Back</button>
+                <button id="score-button-clear" class="btn btn-primary">Clear High Scores</button>
             </div>
-            <h4 id="response-correct">isCorrect</h4>
+            <h4 id="question-response-correct">isCorrect</h4>
         </div>
 
     </div>
@@ -79,8 +79,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script type="text/javascript" src="assets/js/questions.js"></script>
-    <script type="text/javascript" src="assets/js/quiz.js"></script>
+    <script src="assets/js/questions.js"></script>
+    <script src="assets/js/quiz.js"></script>
 </body>
 
 </html>
